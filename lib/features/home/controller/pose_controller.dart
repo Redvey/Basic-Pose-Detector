@@ -6,17 +6,20 @@ import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
 import 'package:logger/logger.dart';
 import '../../../data/models/pose_state.dart';
 
-
 final logger = Logger();
 
 final poseControllerProvider =
-StateNotifierProvider<PoseController, PoseState?>((ref) {
-  return PoseController();
-});
+    StateNotifierProvider<PoseController, PoseState?>((ref) {
+      return PoseController();
+    });
 
 class PoseController extends StateNotifier<PoseState?> {
   PoseController() : super(null) {
-    _poseDetector = PoseDetector(options: PoseDetectorOptions());
+    _poseDetector = PoseDetector(
+      options: PoseDetectorOptions(
+          model: PoseDetectionModel.accurate,
+          mode: PoseDetectionMode.single),
+    );
   }
 
   late final PoseDetector _poseDetector;
